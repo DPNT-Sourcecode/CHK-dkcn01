@@ -14,5 +14,3 @@ def compute(x, y):
     assert 0<=y<=100, f"second argument must be between 0 and 100, got: {y}"
     
     return int(x+y)
-
-
