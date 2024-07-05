@@ -31,6 +31,7 @@ def checkout(skus):
                 val = int(item_count[item]/mcount)
                 total += val * item_prices[item][mcount]
                 item_count[item] -= val
-                
+                print(f"{val} {item}")
     return total
+
 
