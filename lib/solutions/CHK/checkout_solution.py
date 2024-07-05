@@ -12,7 +12,7 @@ item_prices = {
 }
 
 special_offers = {
-    "E":{ 2:{1:"B"} }
+    "E":{ 2:{"B":-1} }
 }
 
 def calc_item_count(skus:str)-> dict:
@@ -35,11 +35,9 @@ def calc_special_offers(item_count):
         sp_offer_divs = list(special_offers[sp_offer_k].keys())
         sp_offer_divs.reverse()
         for div in sp_offer_divs:
-            if int(item_count[sp_offer_k] / div) > 0:
-                sp_count = int(item_count / div)
-                
-                #special_offer_eligibility_count[ special_offers[sp_offer_k][div] ]     # {1:"B"} must not be inverted as tempting as it can be
-                
+            special_offers[sp_offer_k]
+            item_count[sp_offer_k]
+            
     return sp_count
     
 def calc_total(item_count):
@@ -67,6 +65,7 @@ def checkout(skus:str):
     
     total = calc_total(item_count)
     return total
+
 
 
 
