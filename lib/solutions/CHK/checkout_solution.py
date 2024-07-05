@@ -61,10 +61,12 @@ def checkout(skus:str):
     item_count = calc_item_count(skus)
     item_count_for_discounts = copy.deepcopy(item_count)
     
+    print(item_count_for_discounts)
     spo = calc_special_offers(item_count_for_discounts)
     print(spo)
     
     total = calc_total(item_count)
     return total
+
 
 
