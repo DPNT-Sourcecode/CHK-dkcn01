@@ -30,8 +30,11 @@ def checkout(skus):
             if item_count[item] >= mcount:      # worth performing division
                 val = int(item_count[item]/mcount)
                 total += val * item_prices[item][mcount]
-                item_count[item] -= val
+                item_count[item] -= val * mcount
                 print(f"{val} {item}")
+                print(item_count)
+                print(total)
     return total
+
 
 
