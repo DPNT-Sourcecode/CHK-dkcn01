@@ -11,10 +11,19 @@ item_prices = {
 }
 
 def checkout(skus):
+    item_count={}
     for item in skus:
-        if item.upper() not in item_prices.keys():
+        current_item = item.upper()
+        if current_item not in item_prices.keys():
             return -1
         else:
-            
-    raise NotImplementedError()
-
+            if current_item not in item_count:
+                item_count[current_item] = 1
+            else:
+                item_count[current_item] += 1
+    
+    for item in item_count:
+        i_prices = list(item_prices[item].keys())
+        i_prices.reverse()
+        for mcount in i_prices:
+            if item_count[item] >= 
