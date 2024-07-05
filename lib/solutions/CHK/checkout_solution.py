@@ -1,4 +1,4 @@
-
+import copy
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -30,17 +30,19 @@ def calc_item_count(skus:str)-> dict:
     return item_count
     
 def calc_special_offers(item_count):
+    special_offer_eligibility_count = {}
     for sp_offer_k in special_offers:
         sp_offer_divs = list(special_offers[sp_offer_k].keys())
         sp_offer_divs.reverse()
         for div in sp_offer_divs:
-            if int(item_count / div) > 0:
+            if int(item_count[sp_offer_k] / div) > 0:
                 sp_count = int(item_count / div)
-                sp_offer_avail = special_offer_eligibility_count[ special_offers[sp_offer_k][div] ]     # {1:"B"}
                 
-    return sp_offer_avail
+                #special_offer_eligibility_count[ special_offers[sp_offer_k][div] ]     # {1:"B"} must not be inverted as tempting as it can be
+                
+    return sp_count
     
-def calc_total(item_count)
+def calc_total(item_count):
     for item in item_count:
         i_prices = list(item_prices[item].keys())
         i_prices.reverse()
@@ -57,9 +59,12 @@ def calc_total(item_count)
 def checkout(skus:str):
     assert type(skus) is str, "skus must be a string"
     item_count = calc_item_count(skus)
+    item_count_for_discounts = copy.deepcopy(item_count)
     
-    spo = calc_special_offers(item_count)
+    spo = calc_special_offers(item_count_for_discounts)
+    print(spo)
     
     total = calc_total(item_count)
     return total
+
 
