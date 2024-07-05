@@ -10,7 +10,8 @@ item_prices = {
 "D":{1:15},
 }
 
-def checkout(skus):
+def checkout(skus:str):
+    assert type(skus) is str, "skus must be a string"
     item_count={}
     total = 0
     for item in skus:
@@ -35,6 +36,7 @@ def checkout(skus):
                 print(item_count)
                 print(total)
     return total
+
 
 
 
