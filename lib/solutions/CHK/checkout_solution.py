@@ -35,8 +35,3 @@ def checkout(skus:str):
                 print(item_count)
                 print(total)
     return total
-
-
-
-
-
