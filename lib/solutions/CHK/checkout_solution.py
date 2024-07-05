@@ -15,14 +15,13 @@ def checkout(skus:str):
     item_count={}
     total = 0
     for item in skus:
-        current_item = item.upper()
-        if current_item not in item_prices.keys():
+        if item not in item_prices.keys():
             return -1
         else:
-            if current_item not in item_count:
-                item_count[current_item] = 1
+            if item not in item_count:
+                item_count[item] = 1
             else:
-                item_count[current_item] += 1
+                item_count[item] += 1
     
     for item in item_count:
         i_prices = list(item_prices[item].keys())
@@ -36,6 +35,7 @@ def checkout(skus:str):
                 print(item_count)
                 print(total)
     return total
+
 
 
 
