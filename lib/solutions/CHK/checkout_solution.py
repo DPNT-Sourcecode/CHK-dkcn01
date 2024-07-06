@@ -123,6 +123,8 @@ def apply_group_discount(gd_item_count:dict):
             if product in gd_item_count:
                 affected_products_counter += gd_item_count[product]
         
+        print(f"affected_products_counter {affected_products_counter}")
+        
         gp_multiples = list(group_discounts[group_disc].keys())
         gp_multiples.sort()
         gp_multiples.reverse()
