@@ -130,8 +130,9 @@ def apply_group_discount(gd_item_count:dict):
         gp_multiples.sort()
         gp_multiples.reverse()
         
-        print("####")
-        print(gp_multiples)                                                 # [4,3]
+        #print("####")
+        #print(gp_multiples)                                                 # [4,3]
+        print("_________________________________")
         
         div = 0
         div_mult = 0
