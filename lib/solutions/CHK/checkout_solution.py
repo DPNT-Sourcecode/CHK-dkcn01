@@ -187,9 +187,9 @@ def apply_group_discount(gd_item_count:dict):
                             
                             print("-----")
                         else:
-                            print("SP2")
+                            print(f"SP2 {product}")
                     else:
-                        print("SP1")
+                        print(f"SP1 {product}")
                         
                 print("======")
                 print(group_discounts)
@@ -237,6 +237,7 @@ def checkout(skus:str):
         return total
     else:
         return -1
+
 
 
 
