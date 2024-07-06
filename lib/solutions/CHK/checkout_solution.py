@@ -98,6 +98,7 @@ def apply_spo_applicable(spo:dict, item_count:dict)->int:
         item_count[letter] -= spo[letter]
 
 def apply_group_discount(gd_item_count:dict):
+    print(gd_item_count)
     to_remove_from_total = 0
     to_add_to_total = 0
     for group_disc in group_discounts:
@@ -170,11 +171,14 @@ def checkout(skus:str):
         
         #print(item_count)
         total = calc_total(item_count)
+        
         offset = apply_group_discount(item_count_for_group_discounts)
         total += offset
+        
         print(f"total {total}")
         
         return total
     else:
         return -1
+
 
