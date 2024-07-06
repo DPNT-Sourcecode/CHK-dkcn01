@@ -40,6 +40,11 @@ special_offers = {
     "U":{ 4:{"U":1} }
 }
 
+# I know I could use directly a string instead of the tupple
+group_discounts = {
+    ('S','T','X','Y','Z'):{3:45}
+}
+
 def calc_item_count(skus:str)-> dict:
     # returns a dictionary with SKU letter as key and count as value
     item_count={}
@@ -90,6 +95,26 @@ def apply_spo_applicable(spo:dict, item_count:dict)->int:
     substract_item_count = {}
     for letter in spo:
         item_count[letter] -= spo[letter]
+
+def apply_group_discount(gd_item_count:dict):
+    to_remove_from_total = 0
+    for group_disc in group_discounts:
+        # this loop is optional in this case since we only have on group discount but hypothtically
+        # the supermarket could have more in the future
+        gd_indiv_counts = {}
+        gd_indiv_prices = {}
+        for product in group_disc:
+            # product will be S, T, X, Y, Z
+            gd_indiv_count[product] = gd_item_count[product]
+            gd_indiv_prices[product] = gd_item_prices[product][1]
+        # sorting the dictionnary by (price) value
+        # many combinations of 3 products can be made and lead to a discount 
+        # but we want the best discount for the customer
+        priority_product_prices = dict(sorted(gd_indiv_prices.items(), key=lambda item: item[1]))
+        
+        for product in priority_product_prices:
+            to_remove_from_total 
+            
 
 def calc_total(item_count):
     # calc total based only on item_count and item_prices
