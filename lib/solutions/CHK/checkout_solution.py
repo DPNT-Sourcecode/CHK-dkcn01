@@ -45,7 +45,7 @@ def calc_special_offers_applicable(item_count:dict)->dict:
                     
                     for item_letter in item_count:
                         if item_letter in list(special_offers[sp_offer_k][div].keys()):
-                            #print("IN !")
+                            print("IN !")
                             #print(special_offers[sp_offer_k][div].keys())
                             while(discount_multiple>0):
                                 if item_letter in special_offer_eligibility_count:
@@ -88,7 +88,7 @@ def checkout(skus:str):
         
         #print(f"item_count_for_discounts {item_count_for_discounts}")
         spo_applicable = calc_special_offers_applicable(item_count_for_discounts)
-        #print(f"spo {spo_applicable}")
+        print(f"spo {spo_applicable}")
         
         total = calc_total(item_count)
         #print(f"total {total}")
@@ -100,4 +100,5 @@ def checkout(skus:str):
     else:
         #print(-1)
         return -1
+
 
