@@ -152,12 +152,13 @@ def apply_group_discount(gd_item_count:dict):
                             break
                             
                         if product in gd_item_count:
-                            to_remove_from_total += priority_product_prices[product]
-                            print(f"to_remove_from_total {to_remove_from_total}")
-                            gd_item_count[product] -= 1
-                            print(f"gd_item_count[product] {gd_item_count[product]}")
-                            counter -= 1
-                            print(f"counter {counter}")
+                            if gd_item_count[product] > 0:
+                                to_remove_from_total += priority_product_prices[product]
+                                print(f"to_remove_from_total {to_remove_from_total}")
+                                gd_item_count[product] -= 1
+                                print(f"gd_item_count[product] {gd_item_count[product]}")
+                                counter -= 1
+                                print(f"counter {counter}")
                     to_add_to_total = group_discounts[group_disc][div_mult]
     return to_add_to_total - to_remove_from_total
 
