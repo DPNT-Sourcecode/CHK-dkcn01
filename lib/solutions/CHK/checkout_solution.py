@@ -186,7 +186,3 @@ def checkout(skus:str):
         return total
     else:
         return -1
-
-
-
-
