@@ -14,7 +14,7 @@ item_prices = {
 
 special_offers = {
     "E":{ 2:{"B":1} },
-    "F":{ 2:{"F":1} }
+    "F":{ 3:{"F":1} }
 }
 
 def calc_item_count(skus:str)-> dict:
@@ -100,3 +100,4 @@ def checkout(skus:str):
         return total
     else:
         return -1
+
