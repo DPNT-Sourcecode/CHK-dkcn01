@@ -91,14 +91,15 @@ def checkout(skus:str):
         print(f"spo {spo_applicable}")
         
         total = calc_total(item_count)
-        #print(f"total {total}")
+        print(f"total {total}")
         
         total = apply_spo_applicable(total, spo_applicable)
-        #print(f"total {total}")
+        print(f"total {total}")
         
         return total
     else:
         #print(-1)
         return -1
+
 
 
