@@ -42,7 +42,7 @@ special_offers = {
 
 # I know I could use directly a string instead of the tupple
 group_discounts = {
-    ('S','T','X','Y','Z'):{3:45}
+    ('S','T','X','Y','Z'):{3:45, 4:20}
 }
 
 def calc_item_count(skus:str)-> dict:
@@ -184,7 +184,7 @@ def apply_group_discount(gd_item_count:dict):
                         
             print("======")
             print(group_discounts)
-            to_add_to_total += group_discounts[group_disc][div_mult]
+            to_add_to_total += group_discounts[group_disc][div_mult]*div
             print(f"to_add_to_total {to_add_to_total}")
             print("--")
     print(f"ADD {to_add_to_total}")
