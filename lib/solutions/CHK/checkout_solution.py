@@ -129,6 +129,9 @@ def apply_group_discount(gd_item_count:dict):
         gp_multiples.sort()
         gp_multiples.reverse()
         
+        print("####")
+        print(gp_multiples)
+        
         div = 0
         div_mult = 0
         for ammount in gp_multiples:
@@ -181,6 +184,11 @@ def apply_group_discount(gd_item_count:dict):
                             print(f"gd_item_count[product] {gd_item_count[product]}")
                             
                             print("-----")
+                        else:
+                            print("SP2")
+                    else:
+                        print("SP1")
+                        
                 print("======")
                 print(group_discounts)
                 to_add_to_total += group_discounts[group_disc][div_mult]
@@ -227,3 +235,4 @@ def checkout(skus:str):
         return total
     else:
         return -1
+
