@@ -8,11 +8,13 @@ item_prices = {
 "B":{1:30, 2:45},
 "C":{1:20},
 "D":{1:15},
-"E":{1:40}
+"E":{1:40},
+"F":{1:10}
 }
 
 special_offers = {
-    "E":{ 2:{"B":1} }
+    "E":{ 2:{"B":1} },
+    "F":{ 2:{"F":1} }
 }
 
 def calc_item_count(skus:str)-> dict:
