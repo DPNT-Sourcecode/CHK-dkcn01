@@ -65,7 +65,3 @@ def checkout(skus:str):
     
     total = calc_total(item_count)
     return total
-
-
-
-
