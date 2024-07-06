@@ -119,12 +119,15 @@ def apply_group_discount(gd_item_count:dict):
         priority_product_prices = dict(sorted(gd_indiv_prices.items(), key=lambda item: item[1]))
         
         for product in priority_product_prices:
-            affected_products_counter += gd_item_count[product]
+            if product in gd_item_count:
+                affected_products_counter += gd_item_count[product]
         
-        gp_multiples = list(group_discount[group_disc].keys())
+        gp_multiples = list(group_discounts[group_disc].keys())
         gp_multiples.sort()
         gp_multiples.reverse()
         
+        div = 0
+        div_mult = 0
         for ammount in gp_multiples:
             if affected_products_counter > ammount:
                 div = int(affected_products_counter / ammount)
@@ -174,3 +177,4 @@ def checkout(skus:str):
         return total
     else:
         return -1
+
