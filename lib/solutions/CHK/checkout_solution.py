@@ -111,7 +111,7 @@ def apply_group_discount(gd_item_count:dict):
             # product will be S, T, X, Y, Z
             #gd_indiv_count[product] = gd_item_count[product]
             #CAREFUL HERE - only works if no other discount applicable when purchasing more than 1 unit
-            gd_indiv_prices[product] = gd_item_prices[product][1]
+            gd_indiv_prices[product] = item_prices[product][1]
             
         # sorting the dictionnary by (price) value
         # many combinations of 3 products can be made and lead to a discount 
@@ -136,7 +136,7 @@ def apply_group_discount(gd_item_count:dict):
                 to_remove_from_total += priority_product_prices[product]
                 gd_item_count[product] -= 1
             to_add_to_total = group_discounts[group_disc][div_mult]
-            
+    return to_add_to_total - to_remove_from_total
 
 def calc_total(item_count):
     # calc total based only on item_count and item_prices
@@ -157,6 +157,7 @@ def checkout(skus:str):
     item_count = calc_item_count(skus)
     if item_count != -1:
         item_count_for_discounts = copy.deepcopy(item_count)
+        item_count_for_group_discounts = copy.deepcopy(item_count)
         
         spo_applicable = calc_special_offers_applicable(item_count_for_discounts)
         print(f"spo {spo_applicable}")
@@ -166,6 +167,8 @@ def checkout(skus:str):
         
         #print(item_count)
         total = calc_total(item_count)
+        offset = apply_group_discount(item_count_for_group_discounts)
+        total += offset
         print(f"total {total}")
         
         return total
