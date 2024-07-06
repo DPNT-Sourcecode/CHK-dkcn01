@@ -61,9 +61,13 @@ def calc_special_offers_applicable(item_count:dict)->dict:
     return special_offer_eligibility_count
     
 def apply_spo_applicable(total:int, spo:dict)->int:
+    substract_item_count = {}
     for letter in spo:
         #total += spo[letter]*item_prices[letter][1]
-        string_to_substract = letter*item_prices[letter][1]
+        substract_item_count[letter] = 2
+    to_substract = calc_total(substract_item_count)
+    print(to_substract)
+    total -= to_substract
     return total
 
 def calc_total(item_count):
@@ -101,7 +105,3 @@ def checkout(skus:str):
     else:
         #print(-1)
         return -1
-
-
-
-
