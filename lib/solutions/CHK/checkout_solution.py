@@ -136,6 +136,8 @@ def apply_group_discount(gd_item_count:dict):
             if affected_products_counter >= ammount:
                 div = int(affected_products_counter / ammount)
                 div_mult = ammount
+            else:
+                pass
             print(f"div {div}")
             print(f"div_mult {div_mult}")
         
@@ -175,9 +177,10 @@ def apply_group_discount(gd_item_count:dict):
                             print("-----")
                             
                 print(group_discounts)
-                to_add_to_total = group_discounts[group_disc][div_mult]
+                to_add_to_total += group_discounts[group_disc][div_mult]
                 print(f"to_add_to_total {to_add_to_total}")
                 print("--")
+            print("======")
     return to_add_to_total - to_remove_from_total
 
 def calc_total(item_count):
@@ -219,6 +222,7 @@ def checkout(skus:str):
         return total
     else:
         return -1
+
 
 
 
