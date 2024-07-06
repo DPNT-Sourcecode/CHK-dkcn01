@@ -132,7 +132,8 @@ def apply_group_discount(gd_item_count:dict):
         div = 0
         div_mult = 0
         for ammount in gp_multiples:
-            if affected_products_counter > ammount:
+            print(ammount)
+            if affected_products_counter >= ammount:
                 div = int(affected_products_counter / ammount)
                 div_mult = ammount
                 print(f"div {div}")
@@ -192,5 +193,6 @@ def checkout(skus:str):
         return total
     else:
         return -1
+
 
 
