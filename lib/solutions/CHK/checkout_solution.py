@@ -191,6 +191,7 @@ def apply_group_discount(gd_item_count:dict):
             #to_add_to_total += group_discounts[group_disc][div_mult]*div
             #print(f"to_add_to_total {to_add_to_total}")
             #print("--")
+            affected_products_counter -= div*div_mult
     #print(f"ADD {to_add_to_total}")
     #print(f"SUB {to_remove_from_total}")
     return to_add_to_total - to_remove_from_total
@@ -234,6 +235,7 @@ def checkout(skus:str):
         return total
     else:
         return -1
+
 
 
 
