@@ -168,6 +168,7 @@ def apply_group_discount(gd_item_count:dict):
                 for product in priority_product_prices:
                     if product in gd_item_count:
                         if gd_item_count[product] <= counter:
+                            
                             affected_products_counter -= gd_item_count[product]
                             print(f"-- affected_products_counter {affected_products_counter}")
                             
@@ -180,12 +181,11 @@ def apply_group_discount(gd_item_count:dict):
                             print(f"gd_item_count[product] {gd_item_count[product]}")
                             
                             print("-----")
-                            
+                print("======")
                 print(group_discounts)
                 to_add_to_total += group_discounts[group_disc][div_mult]
                 print(f"to_add_to_total {to_add_to_total}")
                 print("--")
-            print("======")
     return to_add_to_total - to_remove_from_total
 
 def calc_total(item_count):
