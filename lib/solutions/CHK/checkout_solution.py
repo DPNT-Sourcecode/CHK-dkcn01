@@ -16,6 +16,7 @@ special_offers = {
 }
 
 def calc_item_count(skus:str)-> dict:
+    # returns a dictionary with SKU letter as key and count as value
     item_count={}
     special_offer_eligibility_count = {}
     total = 0
@@ -30,6 +31,9 @@ def calc_item_count(skus:str)-> dict:
     return item_count
     
 def calc_special_offers_applicable(item_count:dict)->dict:
+    # calc how many "free" articles the consumer is elligible
+    # hence return a dictionnary with the Sku letter and count
+    # which will then be substracted from the total by apply_spo_applicable
     special_offer_eligibility_count = {}
     for sp_offer_k in special_offers:
         # sp_offer_k = E only
@@ -63,14 +67,13 @@ def calc_special_offers_applicable(item_count:dict)->dict:
 def apply_spo_applicable(total:int, spo:dict)->int:
     substract_item_count = {}
     for letter in spo:
-        #total += spo[letter]*item_prices[letter][1]
         substract_item_count[letter] = 2
     to_substract = calc_total(substract_item_count)
-    print(to_substract)
     total -= to_substract
     return total
 
 def calc_total(item_count):
+    # calc total based only on item_count and item_prices
     total = 0
     for item in item_count:
         i_prices = list(item_prices[item].keys())
@@ -80,9 +83,6 @@ def calc_total(item_count):
                 val = int(item_count[item]/mcount)
                 total += val * item_prices[item][mcount]
                 item_count[item] -= val * mcount
-                #print(f"{val} {item}")
-                #print(item_count)
-                #print(total)
     return total
     
 def checkout(skus:str):
