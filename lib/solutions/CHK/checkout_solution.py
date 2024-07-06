@@ -42,7 +42,7 @@ special_offers = {
 
 # I know I could use directly a string instead of the tupple
 group_discounts = {
-    ('S','T','X','Y','Z'):{3:45}
+    ('S','T','X','Y','Z'):{3:45, 4:20}
 }
 
 def calc_item_count(skus:str)-> dict:
@@ -140,23 +140,25 @@ def apply_group_discount(gd_item_count:dict):
                 print(f"div_mult {div_mult}")
         
             #items_to_remove = div * div_mult
-            #counter = div * div_mult
+            counter = div * div_mult
             if div > 0:
-                for product in priority_product_prices:
-                    print(f"priority_product_prices {priority_product_prices}")
-                    print(product)
-                    # THIS PART NEEDS TO BE CORRECTED
-                    if affected_products_counter == 0:
-                        break
+                while(counter>0):
+                    for product in priority_product_prices:
                         
-                    if product in gd_item_count:
-                        to_remove_from_total += priority_product_prices[product]
-                        print(f"to_remove_from_total {to_remove_from_total}")
-                        gd_item_count[product] -= 1
-                        print(f"gd_item_count[product] {gd_item_count[product]}")
-                        affected_products_counter -= 1
-                        print(f"affected_products_counter {affected_products_counter}")
-                to_add_to_total = group_discounts[group_disc][div_mult]
+                        #print(f"priority_product_prices {priority_product_prices}")
+                        #print(product)
+                        
+                        if counter == 0:
+                            break
+                            
+                        if product in gd_item_count:
+                            to_remove_from_total += priority_product_prices[product]
+                            print(f"to_remove_from_total {to_remove_from_total}")
+                            gd_item_count[product] -= 1
+                            print(f"gd_item_count[product] {gd_item_count[product]}")
+                            counter -= 1
+                            print(f"counter {counter}")
+                    to_add_to_total = group_discounts[group_disc][div_mult]
     return to_add_to_total - to_remove_from_total
 
 def calc_total(item_count):
@@ -198,9 +200,3 @@ def checkout(skus:str):
         return total
     else:
         return -1
-
-
-
-
-
-
