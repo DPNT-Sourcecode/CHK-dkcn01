@@ -12,7 +12,7 @@ item_prices = {
 }
 
 special_offers = {
-    "E":{ 2:{"B":-1} }
+    "E":{ 2:{"B":1} }
 }
 
 def calc_item_count(skus:str)-> dict:
@@ -62,7 +62,8 @@ def calc_special_offers_applicable(item_count:dict)->dict:
     
 def apply_spo_applicable(total:int, spo:dict)->int:
     for letter in spo:
-        total += spo[letter]*item_prices[letter][1]
+        #total += spo[letter]*item_prices[letter][1]
+        string_to_substract = letter*item_prices[letter][1]
     return total
 
 def calc_total(item_count):
@@ -100,6 +101,7 @@ def checkout(skus:str):
     else:
         #print(-1)
         return -1
+
 
 
 
