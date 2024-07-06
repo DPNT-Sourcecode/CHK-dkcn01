@@ -103,7 +103,7 @@ def apply_group_discount(gd_item_count:dict):
     for group_disc in group_discounts:
         # this loop is optional in this case since we only have on group discount but hypothtically
         # the supermarket could have more in the future
-        gd_indiv_counts = {}
+        #gd_indiv_counts = {}
         gd_indiv_prices = {}
         affected_products_counter = 0
         
@@ -133,8 +133,9 @@ def apply_group_discount(gd_item_count:dict):
             #items_to_remove = div * div_mult
             counter = div * div_mult
             for product in priority_product_prices:
-                to_remove_from_total = priority_product_prices[product]
-            to_add_to_total = div * group_discounts[group_disc][div_mult]
+                to_remove_from_total += priority_product_prices[product]
+                gd_item_count[product] -= 1
+            to_add_to_total = group_discounts[group_disc][div_mult]
             
 
 def calc_total(item_count):
@@ -170,4 +171,3 @@ def checkout(skus:str):
         return total
     else:
         return -1
-
