@@ -124,14 +124,14 @@ def apply_group_discount(gd_item_count:dict):
             if product in gd_item_count:
                 affected_products_counter += gd_item_count[product]
         
-        print(f"affected_products_counter {affected_products_counter}")
+        print(f"affected_products_counter {affected_products_counter}")     # 7
         
         gp_multiples = list(group_discounts[group_disc].keys())
         gp_multiples.sort()
         gp_multiples.reverse()
         
         print("####")
-        print(gp_multiples)
+        print(gp_multiples)                                                 # [4,3]
         
         div = 0
         div_mult = 0
@@ -142,27 +142,27 @@ def apply_group_discount(gd_item_count:dict):
             div_mult = ammount
             #else:
             #    pass
-            print(f"div {div}")
-            print(f"div_mult {div_mult}")
+            print(f"div {div}")                                             # 1
+            print(f"div_mult {div_mult}")                                   # 4
         
             #items_to_remove = div * div_mult
             counter = div * div_mult
             if div > 0:
                 for product in priority_product_prices:
-                    print(product)
+                    print(product)                                          # Z-SP1 S T
                     if product in gd_item_count:
                         if gd_item_count[product] <= counter:
                             
                             affected_products_counter -= gd_item_count[product]
-                            print(f"-- affected_products_counter {affected_products_counter}")
+                            print(f"-- affected_products_counter {affected_products_counter}")      # when S then 3
                             
                             to_remove_from_total += priority_product_prices[product]*gd_item_count[product]
-                            print(f"to_remove_from_total {to_remove_from_total}")
+                            print(f"to_remove_from_total {to_remove_from_total}")                   # 80
                             
                             
                             gd_item_count[product] -= gd_item_count[product]
-                            print(f"{gd_item_count[product]}{product}")
-                            print(f"gd_item_count[product] {gd_item_count[product]}")
+                            print(f"{gd_item_count[product]}{product}")                             # 0S
+                            print(f"gd_item_count[product] {gd_item_count[product]}")               # 0
                             
                             print("-----")
                         else:
@@ -179,14 +179,17 @@ def apply_group_discount(gd_item_count:dict):
                             print(f"gd_item_count[product] {gd_item_count[product]}")
                             
                             print("-----")
+                        
+                        to_add_to_total += group_discounts[group_disc][div_mult]*div
+                        print(f"to_add_to_total {to_add_to_total}")
                     else:
                         print(f"SP1 {product}")
                         
-            print("======")
-            print(group_discounts)
-            to_add_to_total += group_discounts[group_disc][div_mult]*div
-            print(f"to_add_to_total {to_add_to_total}")
-            print("--")
+            #print("======")
+            #print(group_discounts)
+            #to_add_to_total += group_discounts[group_disc][div_mult]*div
+            #print(f"to_add_to_total {to_add_to_total}")
+            #print("--")
     print(f"ADD {to_add_to_total}")
     print(f"SUB {to_remove_from_total}")
     return to_add_to_total - to_remove_from_total
@@ -230,3 +233,4 @@ def checkout(skus:str):
         return total
     else:
         return -1
+
