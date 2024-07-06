@@ -118,6 +118,7 @@ def apply_group_discount(gd_item_count:dict):
         # many combinations of 3 products can be made and lead to a discount 
         # but we want the best discount for the customer
         priority_product_prices = dict(sorted(gd_indiv_prices.items(), key=lambda item: item[1], reverse=True))
+        print(priority_product_prices)
         
         for product in priority_product_prices:
             if product in gd_item_count:
@@ -169,6 +170,7 @@ def apply_group_discount(gd_item_count:dict):
                     #            print(f"counter {counter}")
                     #to_add_to_total = group_discounts[group_disc][div_mult]
                 for product in priority_product_prices:
+                    print(product)
                     if product in gd_item_count:
                         if gd_item_count[product] <= counter:
                             
@@ -235,5 +237,6 @@ def checkout(skus:str):
         return total
     else:
         return -1
+
 
 
