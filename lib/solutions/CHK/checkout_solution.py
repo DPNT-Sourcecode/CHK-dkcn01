@@ -68,6 +68,7 @@ def calc_special_offers_applicable(item_count:dict)->dict:
     for sp_offer_k in special_offers:
         if sp_offer_k in item_count:
             sp_offer_divs = list(special_offers[sp_offer_k].keys())
+            sp_offer_divs.sort()
             sp_offer_divs.reverse()
             for div in sp_offer_divs:
                 #print(div)
@@ -113,7 +114,14 @@ def apply_group_discount(gd_item_count:dict):
         priority_product_prices = dict(sorted(gd_indiv_prices.items(), key=lambda item: item[1]))
         
         for product in priority_product_prices:
-            to_remove_from_total 
+            affected_products_counter += gd_item_count[product]
+        
+        gp_multiples = list(group_discount[group_disc].keys())
+        gp_multiples.sort()
+        gp_multiples.reverse()
+        
+        for ammount in gp_multiples:
+            if affected_products_counter
             
 
 def calc_total(item_count):
@@ -121,6 +129,7 @@ def calc_total(item_count):
     total = 0
     for item in item_count:
         i_prices = list(item_prices[item].keys())
+        i_prices.sort()
         i_prices.reverse()
         for mcount in i_prices:
             if item_count[item] >= mcount:      # worth performing division
