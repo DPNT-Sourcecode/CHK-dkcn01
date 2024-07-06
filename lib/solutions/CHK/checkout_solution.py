@@ -143,6 +143,8 @@ def apply_group_discount(gd_item_count:dict):
             #counter = div * div_mult
             if div > 0:
                 for product in priority_product_prices:
+                    print(f"priority_product_prices {priority_product_prices}")
+                    print(product)
                     # THIS PART NEEDS TO BE CORRECTED
                     if affected_products_counter == 0:
                         break
@@ -196,6 +198,7 @@ def checkout(skus:str):
         return total
     else:
         return -1
+
 
 
 
