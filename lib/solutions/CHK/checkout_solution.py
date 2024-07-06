@@ -33,30 +33,31 @@ def calc_special_offers_applicable(item_count:dict)->dict:
     special_offer_eligibility_count = {}
     for sp_offer_k in special_offers:
         # sp_offer_k = E only
-        sp_offer_divs = list(special_offers[sp_offer_k].keys())
-        sp_offer_divs.reverse()
-        for div in sp_offer_divs:
-            #print(div)
-            discount_multiple = int(item_count[sp_offer_k] / div)
-            if discount_multiple > 0:
-                #print(f"discount multiple : {discount_multiple}") # until here we are on track !
-                
-                
-                for item_letter in item_count:
-                    if item_letter in list(special_offers[sp_offer_k][div].keys()):
-                        #print("IN !")
-                        #print(special_offers[sp_offer_k][div].keys())
-                        while(discount_multiple>0):
-                            if item_letter in special_offer_eligibility_count:
-                                special_offer_eligibility_count[item_letter] += special_offers[sp_offer_k][div][item_letter]
-                                item_count[sp_offer_k] -=  div
-                                discount_multiple -= 1
-                            else:
-                                special_offer_eligibility_count[item_letter] = special_offers[sp_offer_k][div][item_letter]
-                                item_count[sp_offer_k] -=  div
-                                discount_multiple -= 1
-                    else:
-                        pass
+        if sp_offer_k in item_count:
+            sp_offer_divs = list(special_offers[sp_offer_k].keys())
+            sp_offer_divs.reverse()
+            for div in sp_offer_divs:
+                #print(div)
+                discount_multiple = int(item_count[sp_offer_k] / div)
+                if discount_multiple > 0:
+                    #print(f"discount multiple : {discount_multiple}") # until here we are on track !
+                    
+                    
+                    for item_letter in item_count:
+                        if item_letter in list(special_offers[sp_offer_k][div].keys()):
+                            #print("IN !")
+                            #print(special_offers[sp_offer_k][div].keys())
+                            while(discount_multiple>0):
+                                if item_letter in special_offer_eligibility_count:
+                                    special_offer_eligibility_count[item_letter] += special_offers[sp_offer_k][div][item_letter]
+                                    item_count[sp_offer_k] -=  div
+                                    discount_multiple -= 1
+                                else:
+                                    special_offer_eligibility_count[item_letter] = special_offers[sp_offer_k][div][item_letter]
+                                    item_count[sp_offer_k] -=  div
+                                    discount_multiple -= 1
+                        else:
+                            pass
     return special_offer_eligibility_count
     
 def apply_spo_applicable(total:int, spo:dict)->int:
@@ -99,3 +100,4 @@ def checkout(skus:str):
     else:
         #print(-1)
         return -1
+
