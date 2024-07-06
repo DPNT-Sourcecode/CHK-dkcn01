@@ -36,7 +36,6 @@ def calc_special_offers_applicable(item_count:dict)->dict:
     # which will then be substracted from the total by apply_spo_applicable
     special_offer_eligibility_count = {}
     for sp_offer_k in special_offers:
-        # sp_offer_k = E only
         if sp_offer_k in item_count:
             sp_offer_divs = list(special_offers[sp_offer_k].keys())
             sp_offer_divs.reverse()
@@ -46,11 +45,8 @@ def calc_special_offers_applicable(item_count:dict)->dict:
                 if discount_multiple > 0:
                     #print(f"discount multiple : {discount_multiple}") # until here we are on track !
                     
-                    
                     for item_letter in item_count:
                         if item_letter in list(special_offers[sp_offer_k][div].keys()):
-                            print("IN !")
-                            #print(special_offers[sp_offer_k][div].keys())
                             while(discount_multiple>0):
                                 if item_letter in special_offer_eligibility_count:
                                     special_offer_eligibility_count[item_letter] += special_offers[sp_offer_k][div][item_letter]
@@ -64,15 +60,11 @@ def calc_special_offers_applicable(item_count:dict)->dict:
                             pass
     return special_offer_eligibility_count
     
-def apply_spo_applicable(total:int, spo:dict)->int:
+def apply_spo_applicable(spo:dict, item_count:dict)->int:
+    # removes applicables offers from item_count
     substract_item_count = {}
     for letter in spo:
-        substract_item_count[letter] = spo[letter]
-    
-    to_substract = calc_total(substract_item_count)
-    print(f"SUBTRACT {to_substract}")
-    total -= to_substract
-    return total
+        item_count[letter] -= spo[letter]
 
 def calc_total(item_count):
     # calc total based only on item_count and item_prices
@@ -93,20 +85,24 @@ def checkout(skus:str):
     if item_count != -1:
         item_count_for_discounts = copy.deepcopy(item_count)
         
-        #print(f"item_count_for_discounts {item_count_for_discounts}")
         spo_applicable = calc_special_offers_applicable(item_count_for_discounts)
         print(f"spo {spo_applicable}")
         
+        #print(item_count)
+        apply_spo_applicable(spo_applicable, item_count)
+        
+        #print(item_count)
         total = calc_total(item_count)
         print(f"total {total}")
         
-        total = apply_spo_applicable(total, spo_applicable)
+        apply_spo_applicable(spo_applicable, item_count)
         print(f"total {total}")
         
         return total
     else:
         #print(-1)
         return -1
+
 
 
 
