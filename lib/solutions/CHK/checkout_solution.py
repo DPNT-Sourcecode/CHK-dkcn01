@@ -45,7 +45,7 @@ special_offers = {
 # however a set is not iterable so would require to be converted multiple times
 #
 # in a prod environment adding methods to eventually validate every entry in group_discount could be another option
-# just to say this aspect could/should be improved
+# just to say this aspect could/should be improved for a production environment
 
 group_discounts = {
     ('S','T','X','Y','Z'):{3:45}
@@ -112,11 +112,11 @@ class SupermarketCheckout:
                                 while discount_multiple > 0:
                                     if item_letter in special_offer_eligibility_count:
                                         special_offer_eligibility_count[item_letter] += self.special_offers[sp_offer_k][div][item_letter]
-                                        item_count[sp_offer_k] -=  div
+                                        item_count[sp_offer_k] -= div
                                         discount_multiple -= 1
                                     else:
                                         special_offer_eligibility_count[item_letter] = self.special_offers[sp_offer_k][div][item_letter]
-                                        item_count[sp_offer_k] -=  div
+                                        item_count[sp_offer_k] -= div
                                         discount_multiple -= 1
                             else:
                                 pass
@@ -157,13 +157,12 @@ class SupermarketCheckout:
         for group_disc in self.group_discounts:
             # this loop is optional in this case since we only have on group discount but hypothtically
             # the supermarket could have more in the future
-            #gd_indiv_counts = {}
+            
             gd_indiv_prices = {}
             affected_products_counter = 0
             
             for product in group_disc:
                 # product will be S, T, X, Y, Z
-                #gd_indiv_count[product] = gd_item_count[product]
                 #CAREFUL HERE - only works if no other discount applicable when purchasing more than 1 unit
                 gd_indiv_prices[product] = self.item_prices[product][1]
                 
@@ -275,3 +274,4 @@ def checkout(skus:str) -> int:
     supermarket_instance = SupermarketCheckout(item_prices, special_offers, group_discounts)
     total = supermarket_instance.checkout(skus)
     return total
+
