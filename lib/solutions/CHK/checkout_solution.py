@@ -198,7 +198,7 @@ class SupermarketCheckout:
                                 affected_products_counter -= gd_item_count[product]
                                 to_remove_from_total += priority_product_prices[product] * gd_item_count[product]
                                 # CAREFUL - the order of these two following lines is important 
-                                couter -= gd_item_count[product]
+                                counter -= gd_item_count[product]
                                 gd_item_count[product] -= gd_item_count[product]
                                 
                             else:
@@ -274,4 +274,5 @@ def checkout(skus:str) -> int:
     supermarket_instance = SupermarketCheckout(item_prices, special_offers, group_discounts)
     total = supermarket_instance.checkout(skus)
     return total
+
 
