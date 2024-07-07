@@ -98,7 +98,6 @@ def apply_spo_applicable(spo:dict, item_count:dict)->int:
         item_count[letter] -= spo[letter]
 
 def apply_group_discount(gd_item_count:dict):
-    print(gd_item_count)
     to_remove_from_total = 0
     to_add_to_total = 0
     for group_disc in group_discounts:
@@ -118,84 +117,48 @@ def apply_group_discount(gd_item_count:dict):
         # many combinations of 3 products can be made and lead to a discount 
         # but we want the best discount for the customer
         priority_product_prices = dict(sorted(gd_indiv_prices.items(), key=lambda item: item[1], reverse=True))
-        print(priority_product_prices)
         
         for product in priority_product_prices:
             if product in gd_item_count:
                 affected_products_counter += gd_item_count[product]
         
-        print(f"affected_products_counter {affected_products_counter}")     # 7
-        
         gp_multiples = list(group_discounts[group_disc].keys())
         gp_multiples.sort()
         gp_multiples.reverse()
         
-        #print("####")
-        #print(gp_multiples)                                                 # [4,3]
-        print("_________________________________")
-        
         div = 0
         div_mult = 0
         for ammount in gp_multiples:
-            ###for ammount in group_discounts[group_disc]:
-            #if affected_products_counter >= ammount:
+            
             div = int(affected_products_counter / ammount)
             div_mult = ammount
-            #else:
-            #    pass
-            print(f"div {div}")                                             # 1
-            print(f"div_mult {div_mult}")                                   # 4
-        
-            #items_to_remove = div * div_mult
+            
             counter = div * div_mult
-            if div > 0:
-                for product in priority_product_prices:
-                    print(product)                                          # Z-SP1 S T
+            
+            for product in priority_product_prices:
+                if counter > 0:
+                    
                     if product in gd_item_count:
+                    
                         if gd_item_count[product] <= counter:
-                            # THEN I CAN REMOVE ALL OF THEM IT IS STILL OK
+                            # I can remove all of gd_item_count
                             affected_products_counter -= gd_item_count[product]
-                            print(f"-- affected_products_counter {affected_products_counter}")      # when S then 3
-            #            
-                            to_remove_from_total += priority_product_prices[product]*gd_item_count[product]
-                            print(f"to_remove_from_total {to_remove_from_total}")                   # 80
-            #            
-            #            
-                            gd_item_count[product] -= gd_item_count[product]
-                            print(f"{gd_item_count[product]}{product}")                             # 0S
-                            print(f"gd_item_count[product] {gd_item_count[product]}")               # 0
-                            counter -= gd_item_count[product]
-            #            
-            #            print("-----")
-            #            else:
-            #                print(f"SP2 {product} {gd_item_count[product]}")
-                            #affected_products_counter -= counter
-                            #print(f"-- affected_products_counter {affected_products_counter}")
-            #            #    
-            #                to_remove_from_total += priority_product_prices[product]*counter
-            #                print(f"to_remove_from_total {to_remove_from_total}")
+                            to_remove_from_total += priority_product_prices[product] * gd_item_count[product]
                             
-            #                gd_item_count[product] -= counter
-            #                counter -= counter
-            #                print(f"{gd_item_count[product]}{product}")
-            #                print(f"gd_item_count[product] {gd_item_count[product]}")
-            #            #    
-            #            #    print("-----")
-            #            
-            #            
-            #            #to_add_to_total += group_discounts[group_disc][div_mult]*div
-            #            #print(f"to_add_to_total {to_add_to_total}")
-            #        else:
-            #            print(f"SP1 {product}")
-            #            
-            #print("======")
-            #print(group_discounts)
-            to_add_to_total += group_discounts[group_disc][div_mult]*div
-            #print(f"to_add_to_total {to_add_to_total}")
-            #print("--")
-            #affected_products_counter -= div*div_mult
-    print(f"ADD {to_add_to_total}")
-    print(f"SUB {to_remove_from_total}")
+                            couter -= gd_item_count[product]
+                            gd_item_count[product] -= gd_item_count[product]
+                            
+                        else:
+                            # I can't remove all of gd_item_count, will remove counter instead
+                            affected_products_counter -= counter
+                            to_remove_from_total += priority_product_prices[product] * counter
+                            
+                            gd_item_count[product] -= counter
+                            couter -= counter
+                            
+                    if counter == 0:
+                        to_add_to_total += group_discounts[group_disc][div_mult]*div
+                            
     return to_add_to_total - to_remove_from_total
 
 def calc_total(item_count):
