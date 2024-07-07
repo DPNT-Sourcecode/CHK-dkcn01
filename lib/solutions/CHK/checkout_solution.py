@@ -100,7 +100,7 @@ class SupermarketCheckout:
         special_offer_eligibility_count = {}
         for sp_offer_k in self.special_offers:
             if sp_offer_k in item_count:
-                sp_offer_divs = list(special_offers[sp_offer_k].keys())
+                sp_offer_divs = list(self.special_offers[sp_offer_k].keys())
                 sp_offer_divs.sort()
                 sp_offer_divs.reverse()
                 for div in sp_offer_divs:
@@ -108,14 +108,14 @@ class SupermarketCheckout:
                     if discount_multiple > 0:
                         
                         for item_letter in item_count:
-                            if item_letter in list(special_offers[sp_offer_k][div].keys()):
+                            if item_letter in list(self.special_offers[sp_offer_k][div].keys()):
                                 while(discount_multiple>0):
                                     if item_letter in special_offer_eligibility_count:
-                                        special_offer_eligibility_count[item_letter] += special_offers[sp_offer_k][div][item_letter]
+                                        special_offer_eligibility_count[item_letter] += self.special_offers[sp_offer_k][div][item_letter]
                                         item_count[sp_offer_k] -=  div
                                         discount_multiple -= 1
                                     else:
-                                        special_offer_eligibility_count[item_letter] = special_offers[sp_offer_k][div][item_letter]
+                                        special_offer_eligibility_count[item_letter] = self.special_offers[sp_offer_k][div][item_letter]
                                         item_count[sp_offer_k] -=  div
                                         discount_multiple -= 1
                             else:
@@ -165,7 +165,7 @@ class SupermarketCheckout:
                 # product will be S, T, X, Y, Z
                 #gd_indiv_count[product] = gd_item_count[product]
                 #CAREFUL HERE - only works if no other discount applicable when purchasing more than 1 unit
-                gd_indiv_prices[product] = item_prices[product][1]
+                gd_indiv_prices[product] = self.item_prices[product][1]
                 
             # sorting the dictionnary by (price) value
             # many combinations of 3 products can be made and lead to a discount 
@@ -176,7 +176,7 @@ class SupermarketCheckout:
                 if product in gd_item_count:
                     affected_products_counter += gd_item_count[product]
             
-            gp_multiples = list(group_discounts[group_disc].keys())
+            gp_multiples = list(self.group_discounts[group_disc].keys())
             gp_multiples.sort()
             gp_multiples.reverse()
             
@@ -282,4 +282,5 @@ def checkout(skus:str):
     supermarket_instance = SupermarketCheckout(item_prices, special_offers, group_discounts)
     total = supermarket_instance.checkout(skus)
     return total
+
 
