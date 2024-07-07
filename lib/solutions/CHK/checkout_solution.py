@@ -261,7 +261,6 @@ class SupermarketCheckout:
             spo_applicable = self.calc_special_offers_applicable(item_count_for_discounts)
             self.apply_spo_applicable(spo_applicable, item_count)
             
-            #print(item_count)
             total = self.calc_total(item_count)
             
             offset = self.apply_group_discount(item_count_for_group_discounts)
@@ -271,11 +270,12 @@ class SupermarketCheckout:
         else:
             return -1
     
-def checkout(skus:str):
+def checkout(skus:str)->int:
     assert type(skus) is str, f"skus must be a string, you provided a {type(skus)}"
     supermarket_instance = SupermarketCheckout(item_prices, special_offers, group_discounts)
     total = supermarket_instance.checkout(skus)
     return total
+
 
 
 
