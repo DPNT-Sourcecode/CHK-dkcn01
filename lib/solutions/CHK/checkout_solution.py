@@ -64,16 +64,16 @@ class SupermarketCheckout:
         self.special_offers = special_offers
         self.group_discounts = group_discounts
         
-    def calc_item_count(self, skus:str)->dict:
+    def calc_item_count(self, skus:str) -> dict:
         """
-        calc_item_count(self, skus:str)->dict
+        calc_item_count(self, skus:str) -> dict
         
         returns a dictionnary with SKU letter (string) as key and count (int) as value
         """
         
         assert type(skus) is str, f"skus must be a string, you provided a {type(skus)}"
         
-        item_count={}
+        item_count = {}
         special_offer_eligibility_count = {}
         total = 0
         for item in skus:
@@ -86,9 +86,9 @@ class SupermarketCheckout:
                     item_count[item] += 1
         return item_count
         
-    def calc_special_offers_applicable(self, item_count:dict)->dict:
+    def calc_special_offers_applicable(self, item_count:dict) -> dict:
         """
-        calc_special_offers_applicable(self, item_count:dict)->dict
+        calc_special_offers_applicable(self, item_count:dict) -> dict
         
         calculate how many "free" articles the consumer is elligible
         hence return a dictionnary with the Sku letter and count
@@ -109,7 +109,7 @@ class SupermarketCheckout:
                         
                         for item_letter in item_count:
                             if item_letter in list(self.special_offers[sp_offer_k][div].keys()):
-                                while(discount_multiple>0):
+                                while discount_multiple > 0:
                                     if item_letter in special_offer_eligibility_count:
                                         special_offer_eligibility_count[item_letter] += self.special_offers[sp_offer_k][div][item_letter]
                                         item_count[sp_offer_k] -=  div
@@ -122,9 +122,9 @@ class SupermarketCheckout:
                                 pass
         return special_offer_eligibility_count
         
-    def apply_spo_applicable(self, spo:dict, item_count:dict)->int:
+    def apply_spo_applicable(self, spo:dict, item_count:dict) -> int:
         """
-        apply_spo_applicable(self, spo:dict, item_count:dict)->int
+        apply_spo_applicable(self, spo:dict, item_count:dict) -> int
         
         applies SPecial Offer (SPO) discounts
         This method operates on the item_count (free articles)
@@ -142,9 +142,9 @@ class SupermarketCheckout:
         for letter in spo:
             item_count[letter] -= spo[letter]
 
-    def apply_group_discount(self, gd_item_count:dict)->int:
+    def apply_group_discount(self, gd_item_count:dict) -> int:
         """
-        apply_group_discount(self, gd_item_count:dict)->int
+        apply_group_discount(self, gd_item_count:dict) -> int
         
         Applies group discounts, return an offset (int) to be added to the total from checkout
         gd_item_count is a (deep) copy of the item_count dictionnary
@@ -215,9 +215,9 @@ class SupermarketCheckout:
                                 
         return to_add_to_total - to_remove_from_total
 
-    def calc_total(self, item_count)->int:
+    def calc_total(self, item_count) -> int:
         """
-        calc_total(self, item_count)->int
+        calc_total(self, item_count) -> int
         
         calculate the total (int) based on teh item_count dictionnary
         Note:
@@ -240,9 +240,9 @@ class SupermarketCheckout:
                     item_count[item] -= val * mcount
         return total
         
-    def checkout(self, skus:str)->int:
+    def checkout(self, skus:str) -> int:
         """
-        checkout(self, skus:str)->int
+        checkout(self, skus:str) -> int
         
         This was the original checkout function
         Takes a string argument skus (a succession of characters, case sensitive, each letter representing a product purchased)
@@ -270,7 +270,7 @@ class SupermarketCheckout:
         else:
             return -1
     
-def checkout(skus:str)->int:
+def checkout(skus:str) -> int:
     assert type(skus) is str, f"skus must be a string, you provided a {type(skus)}"
     supermarket_instance = SupermarketCheckout(item_prices, special_offers, group_discounts)
     total = supermarket_instance.checkout(skus)
