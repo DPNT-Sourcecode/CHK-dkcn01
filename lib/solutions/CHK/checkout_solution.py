@@ -208,10 +208,10 @@ class SupermarketCheckout:
                                 to_remove_from_total += priority_product_prices[product] * counter
                                 # CAREFUL - the order of these two following lines is important 
                                 gd_item_count[product] -= counter
-                                couter -= counter
+                                counter -= counter
                                 
                         if counter == 0:
-                            to_add_to_total += group_discounts[group_disc][div_mult]*div
+                            to_add_to_total += self.group_discounts[group_disc][div_mult]*div
                                 
         return to_add_to_total - to_remove_from_total
 
@@ -230,13 +230,13 @@ class SupermarketCheckout:
         # calc total based only on item_count and item_prices
         total = 0
         for item in item_count:
-            i_prices = list(item_prices[item].keys())
+            i_prices = list(self.item_prices[item].keys())
             i_prices.sort()
             i_prices.reverse()
             for mcount in i_prices:
                 if item_count[item] >= mcount:      # worth performing division
                     val = int(item_count[item]/mcount)
-                    total += val * item_prices[item][mcount]
+                    total += val * self.item_prices[item][mcount]
                     item_count[item] -= val * mcount
         return total
         
@@ -244,7 +244,7 @@ class SupermarketCheckout:
         """
         checkout(self, skus:str)->int
         
-        This wass the original checkout function
+        This was the original checkout function
         Takes a string argument skus (a succession of characters, case sensitive, each letter representing a product purchased)
         returns the total ammount of money (int) due at the checkout
         (with all special_prices, discounts, special_offers applied)
@@ -253,25 +253,19 @@ class SupermarketCheckout:
         
         assert type(skus) is str, f"skus must be a string, you provided a {type(skus)}"
         
-        item_count = calc_item_count(skus)
+        item_count = self.calc_item_count(skus)
         if item_count != -1:
             item_count_for_discounts = copy.deepcopy(item_count)
             item_count_for_group_discounts = copy.deepcopy(item_count)
             
-            spo_applicable = calc_special_offers_applicable(item_count_for_discounts)
-            print(f"spo {spo_applicable}")
+            spo_applicable = self.calc_special_offers_applicable(item_count_for_discounts)
+            self.apply_spo_applicable(spo_applicable, item_count)
             
             #print(item_count)
-            apply_spo_applicable(spo_applicable, item_count)
+            total = self.calc_total(item_count)
             
-            #print(item_count)
-            total = calc_total(item_count)
-            
-            offset = apply_group_discount(item_count_for_group_discounts)
-            print(f"offset {offset}")
+            offset = self.apply_group_discount(item_count_for_group_discounts)
             total += offset
-            
-            print(f"total {total}")
             
             return total
         else:
@@ -282,5 +276,6 @@ def checkout(skus:str):
     supermarket_instance = SupermarketCheckout(item_prices, special_offers, group_discounts)
     total = supermarket_instance.checkout(skus)
     return total
+
 
 
