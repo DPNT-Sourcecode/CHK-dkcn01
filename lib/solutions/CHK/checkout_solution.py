@@ -62,11 +62,11 @@ class SupermarketCheckout:
         
         self.item_prices = item_prices
         self.special_offers = special_offers
-        self.group_dicounts = group_discounts
+        self.group_discounts = group_discounts
         
-    def calc_item_count(skus:str)-> dict:
+    def calc_item_count(self, skus:str)->dict:
         """
-        calc_item_count(skus:str)-> dict
+        calc_item_count(self, skus:str)->dict
         
         returns a dictionnary with SKU letter (string) as key and count (int) as value
         """
@@ -77,7 +77,7 @@ class SupermarketCheckout:
         special_offer_eligibility_count = {}
         total = 0
         for item in skus:
-            if item not in item_prices.keys():
+            if item not in self.item_prices.keys():
                 return -1
             else:
                 if item not in item_count:
@@ -98,7 +98,7 @@ class SupermarketCheckout:
         assert type(item_count) is dict, f"item_count must be a string, you provided a {type(item_count)}"
         
         special_offer_eligibility_count = {}
-        for sp_offer_k in special_offers:
+        for sp_offer_k in self.special_offers:
             if sp_offer_k in item_count:
                 sp_offer_divs = list(special_offers[sp_offer_k].keys())
                 sp_offer_divs.sort()
@@ -282,3 +282,4 @@ def checkout(skus:str):
     supermarket_instance = SupermarketCheckout(item_prices, special_offers, group_discounts)
     total = supermarket_instance.checkout(skus)
     return total
+
